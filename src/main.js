@@ -1,12 +1,14 @@
-import { StatusBar } from 'expo-status-bar';
+import { app,GoogleAuth } from './firebase';
 import { StyleSheet, Text, View } from 'react-native';
-import Main from './src/main.js'
 
-export default function App() {
+export default function Main() {
+
+    {GoogleAuth()}
+
   return (
     <View style={styles.container}>
-      <Main/>
-      <StatusBar style="auto" />
+        <Text>Hi</Text>
+
     </View>
   );
 }
