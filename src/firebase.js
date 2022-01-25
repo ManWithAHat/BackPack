@@ -1,6 +1,6 @@
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/auth';
-import 'firebase/compat/firestore';
+import { initializeApp } from "firebase/app";
+import { getAuth, signInWithPopup, GoogleAuthProvider,createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import {doc,setDoc,getFirestore} from 'firebase/firestore'
 
 const firebaseConfig = {
   apiKey: "AIzaSyCpmy2uPBoAx9QIhF6MLIjiUPDPRmG3TWs",
@@ -13,26 +13,28 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-export const app = firebase.initializeApp(firebaseConfig);
+export const app = initializeApp(firebaseConfig);
+export const db = getFirestore()
+export const provider = new GoogleAuthProvider();
+export const auth = getAuth(app);
 
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+export const HandleSignUp = async (Email,Password,Name)=>{
+ await createUserWithEmailAndPassword(auth,Email,Password)
+ console.log(auth.currentUser.uid)
+ await setDoc(doc(db,"Users",auth.currentUser.uid),{
+    Name:Name,
+    Email:Email,
+    Password:Password
+ });
+}
 
-const auth = getAuth();
-export const GoogleAuth = ()=>{signInWithPopup(auth, GoogleAuthProvider)
-  .then((result) => {
-    // This gives you a Google Access Token. You can use it to access the Google API.
-    const credential = GoogleAuthProvider.credentialFromResult(result);
-    const token = credential.accessToken;
-    // The signed-in user info.
-    const user = result.user;
-    // ...
-  }).catch((error) => {
-    // Handle Errors here.
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    // The email of the user's account used.
-    const email = error.email;
-    // The AuthCredential type that was used.
-    const credential = GoogleAuthProvider.credentialFromError(error);
-    // ...
-  });}
+export const HandleSignin = async (Email,Password)=>{
+  await signInWithEmailAndPassword(auth,Email,Password).then((user)=>{
+    console.log('Signed in')
+  })
+  .catch((error)=>{console.log(error.code)})
+}
+
+
+
+
