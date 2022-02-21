@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, signInWithPopup, GoogleAuthProvider,createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { getAuth, signInWithPopup, GoogleAuthProvider,createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut,updateProfile } from "firebase/auth";
 import {doc,setDoc,getFirestore} from 'firebase/firestore'
 
 const firebaseConfig = {
@@ -20,17 +20,13 @@ export const auth = getAuth(app);
 
 export const HandleSignUp = async (Email,Password,Name)=>{
  await createUserWithEmailAndPassword(auth,Email,Password)
- console.log(auth.currentUser.uid)
- await setDoc(doc(db,"Users",auth.currentUser.uid),{
-    Name:Name,
-    Email:Email,
-    Password:Password
- });
+await updateProfile(auth.currentUser,{displayName:Name})
+ 
 }
 
 export const HandleSignin = async (Email,Password)=>{
   await signInWithEmailAndPassword(auth,Email,Password).then((user)=>{
-    console.log('Signed in')
+    
   })
   .catch((error)=>{console.log(error.code)})
 }

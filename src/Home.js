@@ -1,12 +1,19 @@
-import { StyleSheet, Text, View,TextInput,TouchableOpacity,Switch } from 'react-native';
-import { app,auth,provider,HandleSignUp,HandleSignin} from './firebase';
+import ListScreen from "./screens/ListScreen";
+import './../assets/list.svg'
+import { View,Image } from "react-native";
+
+
 
 function Home() {
 
-
-  return (
-      <Text>Hi</Text>
+  return(
+    <View>
+    <ListScreen></ListScreen>
+    
+    </View>
   )
 }
+  
+
 
 export default Home;

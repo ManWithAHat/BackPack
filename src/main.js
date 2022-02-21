@@ -8,23 +8,21 @@ import Home from './Home';
 
 export default function Main() {
 
-  const [UID,SetUID] = useState(0)
+  const [UID,SetUID] = useState(null)
 
   onAuthStateChanged(auth,(user)=>
   {if(user){
-    SetUID(user.uid)
+    SetUID(user.email)
 
   }
   else{
-    SetUID(0)
+    SetUID(null)
   }
 })
 
-  console.log(UID)
-
   return (
     <View>
-        {UID? <Home/>:<Login/>}
+        {UID? <Home />:<Login/>}
 
     </View>
   );

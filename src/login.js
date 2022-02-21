@@ -1,10 +1,9 @@
 import { app,auth,provider,HandleSignUp,HandleSignin} from './firebase';
 
-import { StyleSheet, Text, View,TextInput,TouchableOpacity,Switch } from 'react-native';
+import { StyleSheet, Text, View,TextInput,TouchableOpacity,Switch,ImageBackground } from 'react-native';
 import { useEffect,useState } from 'react';
 
-
-
+import Svg,{Circle} from 'react-native-svg';
 
 
 
@@ -24,7 +23,7 @@ export default function Login() {
     
   
     return (
-        <View style={styles.container}>
+        <View  style={styles.container}>
           <Text style={styles.Text}>Sign Up</Text>
           <TextInput placeholder='Email' style={styles.TextInput} value={Email} onChangeText={text => SetEmail(text)}/>
           <TextInput placeholder='Password' style={styles.TextInput} value={Password} onChangeText={text => SetPassword(text)}/>
@@ -64,9 +63,9 @@ export default function Login() {
 
 
   return(
-    <View style={styles.MainPage}>
+    <ImageBackground source={require('./../assets/blob-scene-haikei.png')} style={styles.MainPage}>
       {Account? <Lgin/>:<Signup/>}
-    </View>
+    </ImageBackground>
   )
 
   
@@ -74,7 +73,6 @@ export default function Login() {
 
 const styles = StyleSheet.create({
     container:{
-      backgroundColor:'#EFD595',
       width:'100%',
       height:'100%',
       alignItems:'center',
@@ -84,7 +82,6 @@ const styles = StyleSheet.create({
       height:'100%',
       justifyContent:'center',
       alignItems:'center',
-      backgroundColor:'#EFD595'
     },
     Text:{
       fontSize:40,
