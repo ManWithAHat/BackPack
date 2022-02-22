@@ -1,6 +1,6 @@
-import { StyleSheet, Text, View,TextInput,TouchableOpacity, Button,FlatList } from 'react-native';
+import { StyleSheet, Text, View,TextInput,TouchableOpacity, Button,FlatList,Image } from 'react-native';
 import { useEffect, useState } from 'react';
-import { auth} from './../firebase.js';
+import {auth} from './../firebase.js';
 import {FAB} from 'react-native-elements'
 
 
@@ -34,7 +34,12 @@ function ListScreen() {
 
     return(
       <View style={{backgroundColor:'#EFD595',height:'100%',justifyContent:'flex-start',}}>
+      <View style={{flexDirection:'row',width:'100%',justifyContent:'space-between'}}>
       <Text style={styles.Text}>Edit Item</Text>
+      <TouchableOpacity style={{width:50,height:50,alignSelf:'flex-end',marginEnd:10}} onPress={()=>{Setedit()}}>
+      <Image source={require('../../assets/left-arrow.png')} style={{width:50,height:50,alignSelf:'flex-end'}}/>
+      </TouchableOpacity>
+      </View>
       <View style={{alignContent:'center',alignItems:'center'}}>
       <TextInput placeholder='Title' style={styles.TextInput} value={Title} onChangeText={text => SetTitle(text)}/>
       <TextInput placeholder='Description' style={styles.TextInput} value={Sub} onChangeText={text => SetSub(text)}/>
@@ -54,8 +59,9 @@ function ListScreen() {
       </View>
       <View style={{alignItems:'center',justifyContent:'space-evenly',flexDirection:'row',marginVertical:20}}>
         <TouchableOpacity style={{width:'93%'}} onPress={()=>{Setedit()}}>
-          <View style={{backgroundColor:'#335F70',width:'100%',height:50,borderRadius:10,justifyContent:'center'}}>
+          <View style={{backgroundColor:'#335F70',width:'100%',height:50,borderRadius:10,justifyContent:'space-evenly',flexDirection:'row'}}>
             <Text style={{color:"#fff",alignSelf:'center',fontSize:20}}>Push to Tomorrow</Text>
+            <Image source={require('../../assets/tomorrow.png')} style={{height:40,width:40,alignSelf:"center"}}/>
           </View>
         </TouchableOpacity>
       </View>
@@ -101,7 +107,12 @@ function ListScreen() {
 
     return(
       <View style={{backgroundColor:'#EFD595',height:'100%',justifyContent:'flex-start'}}>
+      <View style={{flexDirection:'row',width:'100%',justifyContent:'space-between'}}>
       <Text style={styles.Text}>New Item</Text>
+      <TouchableOpacity style={{width:50,height:50,alignSelf:'flex-end',marginEnd:10}} onPress={()=>{SetScreen(1)}}>
+      <Image source={require('../../assets/left-arrow.png')} style={{width:50,height:50,alignSelf:'flex-end'}}/>
+      </TouchableOpacity>
+      </View>
       <View style={{alignContent:'center',alignItems:'center'}}>
       <TextInput placeholder='Title' style={styles.TextInput} value={Title} onChangeText={text => SetTitle(text)}/>
       <TextInput placeholder='Description' style={styles.TextInput} value={Sub} onChangeText={text => SetSub(text)}/>
@@ -120,12 +131,7 @@ function ListScreen() {
         </View>
       </View>
       <View style={{alignItems:'center',justifyContent:'space-evenly',flexDirection:'row'}}>
-        <TouchableOpacity style={{width:'45%'}} onPress={()=>{SetScreen(1)}}>
-          <View style={{backgroundColor:'#335F70',width:'100%',height:50,borderRadius:10,justifyContent:'center'}}>
-            <Text style={{color:"#fff",alignSelf:'center',fontSize:20}}>Back</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity style={{width:'45%'}} onPress={()=>{HandleAdd()}}>
+        <TouchableOpacity style={{width:'90%'}} onPress={()=>{HandleAdd()}}>
           <View style={{backgroundColor:'#335F70',width:'100%',height:50,borderRadius:10,justifyContent:'center'}}>
             <Text style={{color:"#fff",alignSelf:'center',fontSize:20}}>Add</Text>
           </View>
@@ -138,8 +144,12 @@ function ListScreen() {
   const List = ()=>{
     return(
     <View style={styles.main}>
-      
+      <View style={{flexDirection:'row',width:'100%',justifyContent:'space-between'}}>
       <Text style={styles.Text}>{auth.currentUser.displayName? "Hi, "+auth.currentUser.displayName:"Welcome"}</Text>
+      <TouchableOpacity style={{width:50,height:50,alignSelf:'flex-end',marginEnd:10}} onPress={()=>{auth.signOut()}}>
+      <Image source={require('../../assets/logout.png')} style={{width:50,height:50,alignSelf:'flex-end'}}/>
+      </TouchableOpacity>
+      </View>
       <View style={styles.body}> 
       <Text style={{paddingTop:10,paddingStart:20,fontWeight:'bold',color:'#335F70',fontSize:30}}>{monthNames[date.getMonth()]} {date.getDate()}</Text>
       <FlatList
@@ -177,7 +187,7 @@ const styles = StyleSheet.create({
     alignSelf:'flex-start',
     fontSize:40,
     color:'#2A9D8F',
-    fontWeight:'bold'
+    fontWeight:'bold',
   },
   TextInput:{
     width:'80%',
